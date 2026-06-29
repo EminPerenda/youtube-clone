@@ -1,4 +1,5 @@
 export const API_KEY = "AIzaSyCXfytjP_zX261yuIxTtmvNCQZoVoCslM0";
+export const API_BASE = "/yt";
 
 export const value_converter = (value) => {
   if (value >= 1000000) {

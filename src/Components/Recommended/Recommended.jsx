@@ -1,81 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Recommended.css";
 import thumbnail1 from "../../assets/thumbnail1.png";
-import thumbnail2 from "../../assets/thumbnail2.png";
-import thumbnail3 from "../../assets/thumbnail3.png";
-import thumbnail4 from "../../assets/thumbnail4.png";
-import thumbnail5 from "../../assets/thumbnail5.png";
-import thumbnail6 from "../../assets/thumbnail6.png";
-import thumbnail7 from "../../assets/thumbnail7.png";
-import thumbnail8 from "../../assets/thumbnail8.png";
+import { API_BASE, API_KEY } from "../../data";
+import { value_converter } from "../../data";
 
-export const Recommended = () => {
+export const Recommended = ({ categoryId, currentVideoId }) => {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const fetchRecommended = async () => {
+      try {
+        let url = `${API_BASE}/videos?part=snippet%2Cstatistics&chart=mostPopular&maxResults=8&regionCode=US&key=${API_KEY}`;
+
+        if (categoryId) {
+          url += `&videoCategoryId=${categoryId}`;
+        }
+
+        const response = await fetch(url);
+        const result = await response.json();
+        const items = (result.items || []).filter(
+          (item) => item.id !== currentVideoId,
+        );
+        setVideos(items.slice(0, 8));
+      } catch {
+        setVideos([]);
+      }
+    };
+
+    fetchRecommended();
+  }, [categoryId, currentVideoId]);
+
   return (
     <div className="recommended">
-      <div className="side-video-list">
-        <img src={thumbnail1} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail2} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail3} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail4} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail5} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail6} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail7} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
-      <div className="side-video-list">
-        <img src={thumbnail8} alt="" />
-        <div className="vid-info">
-          <h4>Best channel that help you to be a web developer</h4>
-          <p>GreatStack</p>
-          <p>199K Views</p>
-        </div>
-      </div>
+      {videos.map((video) => {
+        const videoId = video.id;
+        const thumb =
+          video.snippet?.thumbnails?.high?.url ||
+          video.snippet?.thumbnails?.medium?.url ||
+          video.snippet?.thumbnails?.default?.url ||
+          thumbnail1;
+        const title = video.snippet?.title || "Recommended video";
+        const channelTitle = video.snippet?.channelTitle || "YouTube";
+
+        return (
+          <Link
+            key={videoId}
+            to={`/video/${video.snippet?.categoryId || categoryId || "0"}/${videoId}`}
+            className="side-video-list"
+          >
+            <img
+              src={thumb}
+              alt={title}
+              onError={(event) => {
+                event.target.onerror = null;
+                event.target.src = thumbnail1;
+              }}
+              loading="lazy"
+            />
+            <div className="vid-info">
+              <h4>{title}</h4>
+              <p>{channelTitle}</p>
+              <p>
+                {value_converter(Number(video.statistics?.viewCount || 0))}{" "}
+                views
+              </p>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 };

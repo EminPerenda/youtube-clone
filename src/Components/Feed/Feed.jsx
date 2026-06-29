@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import "./Feed.css";
 import thumbnail1 from "../../assets/thumbnail1.png";
-import { API_KEY, value_converter } from "../../data";
+import { API_BASE, API_KEY, value_converter } from "../../data";
 
 export const Feed = ({ category }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const videoListUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
+      const videoListUrl = `${API_BASE}/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
       const response = await fetch(videoListUrl);
       const result = await response.json();
       setData(result.items || []);
@@ -33,8 +34,8 @@ export const Feed = ({ category }) => {
           <h2>{item.snippet.title}</h2>
           <h3>{item.snippet.channelTitle}</h3>
           <p>
-            {value_converter(item.statistics.viewCount)} views &bull;{" "}
-            {item.snippet.publishedAt}
+            {value_converter(item.statistics?.viewCount || 0)} views &bull;{" "}
+            {moment(item.snippet?.publishedAt).fromNow()}
           </p>
         </Link>
       ))}

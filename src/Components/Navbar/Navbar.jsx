@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import menu_icon from "../../assets/menu.png";
 import logo from "../../assets/logo.png";
@@ -18,7 +19,9 @@ export const Navbar = ({ setSidebar }) => {
           src={menu_icon}
           alt=""
         />
-        <img className="logo" src={logo} alt="" />
+        <Link to="/">
+          <img className="logo" src={logo} alt="Home" />
+        </Link>
       </div>
       <div className="nav-middle flex-div">
         <div className="search-box  flex-div">
