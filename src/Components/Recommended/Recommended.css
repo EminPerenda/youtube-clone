@@ -1,0 +1,31 @@
+.recommended {
+  flex-basis: 30%;
+}
+
+.side-video-list {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.side-video-list img {
+  width: 160px;
+  border-radius: 6px;
+}
+
+.vid-info {
+  flex: 1;
+}
+
+.vid-info h4 {
+  font-size: 14px;
+  margin: 0 0 6px;
+  color: #000;
+}
+
+.vid-info p {
+  font-size: 13px;
+  color: #5a5a5a;
+  margin: 2px 0;
+}
