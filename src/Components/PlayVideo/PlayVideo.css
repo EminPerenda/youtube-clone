@@ -4,8 +4,10 @@
   padding: 20px 2% 20px 2%;
 }
 
-.play-video video {
+.play-video iframe {
   width: 100%;
+  min-height: 420px;
+  border: 0;
   border-radius: 8px;
   background: #000;
 }
