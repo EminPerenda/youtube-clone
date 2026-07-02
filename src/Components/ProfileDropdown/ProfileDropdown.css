@@ -1,0 +1,80 @@
+/* Glavni kontejner mora biti relative */
+.profile-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Stilizacija slike (krug) */
+.profile-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%; /* Pravi savršen krug */
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.profile-avatar:hover {
+  border-color: #007bff; /* Efekat na hover */
+}
+
+/* Padajući meni */
+.dropdown-menu {
+  position: absolute;
+  top: 55px; /* Udaljenost od vrha kontejnera (ispod slike) */
+  right: 0; /* Poravnanje menija uz desnu ivicu slike */
+  width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000; /* Osigurava da meni bude iznad ostalih elemenata */
+}
+
+/* Informacije o korisniku */
+.dropdown-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: default; /* Kursor se vraća na običan (nije pointer) jer ovo nije klikabilno */
+}
+
+.user-fullname {
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.user-username {
+  color: #888;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Linija za razdvajanje */
+.dropdown-divider {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Dugme za profil */
+.profile-btn {
+  padding: 12px 15px;
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px; /* Zaobljenost samo na dnu dugmeta */
+  transition: background-color 0.2s;
+}
+
+.profile-btn:hover {
+  background-color: #f5f5f5;
+  color: #007bff;
+}

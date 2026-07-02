@@ -38,3 +38,61 @@ nav {
   width: 35px;
   border-radius: 50%;
 }
+/* Sidro za padajući meni */
+.profile-container {
+  position: relative;
+  display: inline-block; /* Sprečava flexbox da ga razvuče */
+  cursor: pointer;
+}
+
+/* Padajući meni koji lebdi iznad svega */
+.dropdown-menu {
+  position: absolute;
+  top: 120%; /* Top 100% ga gura tačno ispod slike, 120% daje malo prostora */
+  right: 0; /* Poravnava ga sa desnom ivicom slike */
+  width: 160px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999; /* Mora biti ogroman broj da bude iznad svega na stranici */
+}
+
+.dropdown-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-info strong {
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown-info span {
+  font-size: 12px;
+  color: #777;
+  margin-top: 3px;
+}
+
+.dropdown-menu hr {
+  margin: 0;
+  border-top: 1px solid #eee;
+}
+
+.profile-btn {
+  padding: 12px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+}
+
+.profile-btn:hover {
+  background: #f9f9f9;
+}
