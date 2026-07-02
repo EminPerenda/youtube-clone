@@ -136,9 +136,7 @@ npm run preview
 - [ ] Add comments section on the video page
 - [ ] Add loading and error states for API requests
 
-## License
 
-This project is intended for educational purposes. Add a license of your choice (e.g. MIT) if you plan to distribute it.
 
 ## Acknowledgements
 
